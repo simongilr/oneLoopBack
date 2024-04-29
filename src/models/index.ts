@@ -1,0 +1,2 @@
+export * from './maetterceros.model';
+
