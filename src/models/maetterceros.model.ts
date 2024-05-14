@@ -19,7 +19,7 @@ export class Maetterceros extends Entity {
     type: 'string',
     required: true,
   })
-  nic: string;
+  nit: string;
 
   @property({
     type: 'number',

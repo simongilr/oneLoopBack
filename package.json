@@ -55,7 +55,11 @@
     "@loopback/rest": "^14.0.1",
     "@loopback/rest-explorer": "^7.0.1",
     "@loopback/service-proxy": "^7.0.1",
+    "cors": "^2.8.5",
+    "install": "^0.13.0",
     "loopback-connector-mysql": "^7.0.9",
+    "nodemon": "^3.1.0",
+    "npm": "^10.7.0",
     "tslib": "^2.0.0"
   },
   "devDependencies": {

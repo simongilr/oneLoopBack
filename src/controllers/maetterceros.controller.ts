@@ -7,13 +7,13 @@ import {
   Where,
 } from '@loopback/repository';
 import {
-  post,
-  param,
+  del,
   get,
   getModelSchemaRef,
+  param,
   patch,
+  post,
   put,
-  del,
   requestBody,
   response,
 } from '@loopback/rest';
@@ -23,8 +23,8 @@ import {MaettercerosRepository} from '../repositories';
 export class MaettercerosController {
   constructor(
     @repository(MaettercerosRepository)
-    public maettercerosRepository : MaettercerosRepository,
-  ) {}
+    public maettercerosRepository: MaettercerosRepository,
+  ) { }
 
   @post('/maetterceros')
   @response(200, {
@@ -44,6 +44,7 @@ export class MaettercerosController {
     })
     maetterceros: Omit<Maetterceros, 'id'>,
   ): Promise<Maetterceros> {
+    console.log('DATA : ', maetterceros)
     return this.maettercerosRepository.create(maetterceros);
   }
 
@@ -92,6 +93,8 @@ export class MaettercerosController {
     maetterceros: Maetterceros,
     @param.where(Maetterceros) where?: Where<Maetterceros>,
   ): Promise<Count> {
+    console.log('DATA : ', maetterceros)
+
     return this.maettercerosRepository.updateAll(maetterceros, where);
   }
 
@@ -126,6 +129,8 @@ export class MaettercerosController {
     })
     maetterceros: Maetterceros,
   ): Promise<void> {
+    console.log('DATA : ', maetterceros)
+
     await this.maettercerosRepository.updateById(id, maetterceros);
   }
 
@@ -137,6 +142,8 @@ export class MaettercerosController {
     @param.path.number('id') id: number,
     @requestBody() maetterceros: Maetterceros,
   ): Promise<void> {
+    console.log('DATA : ', maetterceros)
+
     await this.maettercerosRepository.replaceById(id, maetterceros);
   }
 
