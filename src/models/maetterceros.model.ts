@@ -37,6 +37,11 @@ export class Maetterceros extends Entity {
   })
   borrado?: string;
 
+  @property({
+    type: 'string',
+  })
+  TIPO_DOCUMENTO?: string;
+
 
   constructor(data?: Partial<Maetterceros>) {
     super(data);
