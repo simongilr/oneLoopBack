@@ -1,11 +1,12 @@
 import {BootMixin} from '@loopback/boot';
-import {ApplicationConfig} from '@loopback/core';
+import {ApplicationConfig, createBindingFromClass} from '@loopback/core';
 import {RepositoryMixin} from '@loopback/repository';
 import {RestApplication} from '@loopback/rest';
 import {RestExplorerBindings, RestExplorerComponent} from '@loopback/rest-explorer';
 import {ServiceMixin} from '@loopback/service-proxy';
 import path from 'path';
-import DbDataSource from './datasources/db.datasource';
+import {DbDataSource} from './datasources/db.datasource';
+import {CloseConnectionInterceptor} from './interceptors/close-connection.interceptor';
 import {MySequence} from './sequence';
 
 export {ApplicationConfig};
@@ -39,8 +40,10 @@ export class MyLoopbackAppApplication extends BootMixin(
       },
     };
 
-
     // Bind the DataSource to the application context
-    this.bind('datasources.db').toClass(DbDataSource); // Bind DbDataSource to 'datasources.db'
+    this.bind('datasources.db').toClass(DbDataSource);
+
+    // Register the interceptor
+    this.add(createBindingFromClass(CloseConnectionInterceptor));
   }
 }
