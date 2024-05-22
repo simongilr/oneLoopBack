@@ -72,9 +72,23 @@ export class MaettercerosController {
     },
   })
   async find(
-    @param.filter(Maetterceros) filter?: Filter<Maetterceros>,
+    @param.query.number('skip') skip?: number,
+    @param.query.number('limit') limit?: number,
+    @param.query.object('filter') filter?: Filter<Maetterceros>,
   ): Promise<Maetterceros[]> {
-    return this.maettercerosRepository.find(filter);
+    console.log('Skip:', skip);
+    console.log('Limit:', limit);
+    console.log('Filter:', filter);
+
+    const options = {
+      skip: skip || 0,
+      limit: limit || 10,
+      where: filter?.where,
+      // Puedes agregar más opciones de filtro aquí, como "order", etc.
+    };
+
+    console.log('Hice find ');
+    return this.maettercerosRepository.find(options);
   }
 
   @patch('/maetterceros')
