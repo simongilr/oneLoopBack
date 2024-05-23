@@ -72,22 +72,27 @@ export class MaettercerosController {
     },
   })
   async find(
-    @param.query.number('skip') skip?: number,
-    @param.query.number('limit') limit?: number,
+    @param.query.number('page') page?: number,
+    @param.query.number('size') size?: number,
     @param.query.object('filter') filter?: Filter<Maetterceros>,
   ): Promise<Maetterceros[]> {
+    const pageNumber = page || 1; // Si no se proporciona el número de página, se usa 1 por defecto
+    const pageSize = size || 10; // Si no se proporciona el tamaño de página, se usa 10 por defecto
+    const skip = (pageNumber - 1) * pageSize;
+
+    console.log('Page:', pageNumber);
     console.log('Skip:', skip);
-    console.log('Limit:', limit);
+    console.log('Size:', pageSize);
     console.log('Filter:', filter);
 
     const options = {
-      skip: skip || 0,
-      limit: limit || 10,
+      skip: skip,
+      limit: pageSize,
       where: filter?.where,
       // Puedes agregar más opciones de filtro aquí, como "order", etc.
     };
 
-    console.log('Hice find ');
+    console.log('Hice find');
     return this.maettercerosRepository.find(options);
   }
 
