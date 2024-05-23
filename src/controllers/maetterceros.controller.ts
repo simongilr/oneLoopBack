@@ -92,7 +92,6 @@ export class MaettercerosController {
       // Puedes agregar más opciones de filtro aquí, como "order", etc.
     };
 
-    console.log('Hice find');
     return this.maettercerosRepository.find(options);
   }
 
