@@ -1,10 +1,9 @@
 import {
   Count,
   CountSchema,
-  Filter,
   FilterExcludingWhere,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
 import {
   del,
@@ -74,21 +73,30 @@ export class MaettercerosController {
   async find(
     @param.query.number('page') page?: number,
     @param.query.number('size') size?: number,
-    @param.query.object('filter') filter?: Filter<Maetterceros>,
+    @param.query.string('searchBy') searchBy?: string,
+
   ): Promise<Maetterceros[]> {
     const pageNumber = page || 1; // Si no se proporciona el número de página, se usa 1 por defecto
     const pageSize = size || 10; // Si no se proporciona el tamaño de página, se usa 10 por defecto
     const skip = (pageNumber - 1) * pageSize;
+    const search = searchBy;
 
     console.log('Page:', pageNumber);
     console.log('Skip:', skip);
     console.log('Size:', pageSize);
-    console.log('Filter:', filter);
+    console.log('search:', search);
+
+    let whereFilter: Where<Maetterceros> = {};
+
+
+    if (search) {
+      whereFilter = {nombre: {like: `%${search}%`}};
+    }
 
     const options = {
       skip: skip,
       limit: pageSize,
-      where: filter?.where,
+      where: whereFilter,
       // Puedes agregar más opciones de filtro aquí, como "order", etc.
     };
 
